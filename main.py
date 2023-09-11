@@ -10,7 +10,4 @@ if __name__ == "__main__":
     main_window = MainWindow()
     main_window.show()
 
-    # region_view = RegionView()
-    # region_view.show()
-
     sys.exit(app.exec_())

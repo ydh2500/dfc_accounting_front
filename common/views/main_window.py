@@ -11,41 +11,49 @@ class MainWindow(QWidget):
         super().__init__()
 
         self.setWindowTitle("DFC Accounting")
-
         layout = QVBoxLayout()
 
         # Top Layout
-        top_layout = QVBoxLayout()
         self.header = HeaderWidget()
-        top_layout.addWidget(self.header)
-        layout.addLayout(top_layout)
+        layout.addWidget(self.header)
 
         # Bottom Layout
         bottomLayout = QHBoxLayout()
-        # Bottom Left Menu
         self.leftMenu = LeftMenuWidget()
         bottomLayout.addWidget(self.leftMenu)
-        # Bottom Right Content
+
         self.contentArea = QStackedWidget()
         bottomLayout.addWidget(self.contentArea)
 
+        layout.addLayout(bottomLayout)
+        self.setLayout(layout)
+
+        self.leftMenu.menuClicked.connect(self.on_menu_clicked)
+
+        # 페이지 초기화 및 이동 시그널 연결
+        self.initialize_pages()
+
+    def initialize_pages(self):
         # 페이지 선언
         self.userPage = UserPage()
         self.bankAccountPage = BankAccountPage()
 
-        # 페이지 이동 시그널 연결
-        self.leftMenu.userButton.clicked.connect(lambda: self.change_content(0))
-        self.leftMenu.bankAccountButton.clicked.connect(lambda: self.change_content(1))
+        self.pages = {
+            "사용자 계정 관리": self.userPage,
+            "계좌 관리": self.bankAccountPage,
+            # ... 기타 페이지 ...
+        }
 
+        for index, page in enumerate(self.pages.values()):
+            self.contentArea.addWidget(page)
+    def create_page_changer(self, index):
+        def page_changer():
+            self.contentArea.setCurrentIndex(index)
 
-        # 페이지 contentArea에 추가
-        self.contentArea.addWidget(self.userPage)
-        self.contentArea.addWidget(self.bankAccountPage)
+        return page_changer
 
-        # Layout
-        layout.addLayout(bottomLayout)
-        self.setLayout(layout)
-
-    def change_content(self, index):
-        self.contentArea.setCurrentIndex(index)
-
+    def on_menu_clicked(self, menu_name):
+        page = self.pages.get(menu_name)
+        if page:
+            index = self.contentArea.indexOf(page)
+            self.contentArea.setCurrentIndex(index)
