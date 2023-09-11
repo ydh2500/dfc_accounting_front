@@ -1,9 +1,9 @@
 from PyQt5.QtWidgets import QVBoxLayout, QLabel
 
-from common.views.base_page import BasePage
+from views.common.base_page import BasePage
 
 
-class BankAccountPage(BasePage):
+class BankAccountManagementPage(BasePage):
     def __init__(self):
         super().__init__("계좌 관리")
 

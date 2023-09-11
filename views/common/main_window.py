@@ -1,9 +1,8 @@
 from PyQt5.QtWidgets import QWidget, QVBoxLayout, QStackedWidget, QHBoxLayout
 
-from bank_account.views import BankAccountPage
-from common.views.header_widget import HeaderWidget
-from common.views.left_menu_widget import LeftMenuWidget
-from user.views import UserPage
+from views.common.left_menu_contents import LeftMenuContents
+from views.common.header_widget import HeaderWidget
+from views.common.left_menu_widget import LeftMenuWidget
 
 
 class MainWindow(QWidget):
@@ -30,27 +29,22 @@ class MainWindow(QWidget):
 
         self.leftMenu.menuClicked.connect(self.on_menu_clicked)
 
+        self.menu_contents = LeftMenuContents()  # LeftMenuContents 인스턴스 생성
         # 페이지 초기화 및 이동 시그널 연결
         self.initialize_pages()
 
     def initialize_pages(self):
-        # 페이지 선언
-        self.userPage = UserPage()
-        self.bankAccountPage = BankAccountPage()
-
-        self.pages = {
-            "사용자 계정 관리": self.userPage,
-            "계좌 관리": self.bankAccountPage,
-            # ... 기타 페이지 ...
-        }
+        self.pages = {}
+        for main_menu, sub_menus in self.menu_contents.get_contents():
+            main_page = self.menu_contents.get_page(main_menu)
+            self.pages[main_menu] = main_page
+            for sub_menu in sub_menus:
+                sub_page = self.menu_contents.get_page(sub_menu)
+                self.pages[sub_menu] = sub_page
 
         for index, page in enumerate(self.pages.values()):
-            self.contentArea.addWidget(page)
-    def create_page_changer(self, index):
-        def page_changer():
-            self.contentArea.setCurrentIndex(index)
-
-        return page_changer
+            if page:  # 페이지가 None이 아닌 경우에만 추가
+                self.contentArea.addWidget(page)
 
     def on_menu_clicked(self, menu_name):
         page = self.pages.get(menu_name)

@@ -1,7 +1,7 @@
-from common.views.base_page import BasePage
+from views.common.base_page import BasePage
 
 
-class UserPage(BasePage):
+class TotalUserAccountManagementPage(BasePage):
     def __init__(self):
         super().__init__("User")
 
