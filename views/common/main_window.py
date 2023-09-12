@@ -1,13 +1,18 @@
 from PyQt5.QtWidgets import QWidget, QVBoxLayout, QStackedWidget, QHBoxLayout
 
+from services.api_client import APIClient
+from services.token_manager import TokenManager
 from views.common.left_menu_contents import LeftMenuContents
 from views.common.header_widget import HeaderWidget
 from views.common.left_menu_widget import LeftMenuWidget
 
 
 class MainWindow(QWidget):
-    def __init__(self):
+    def __init__(self, api_client:APIClient, token_manager: TokenManager):
         super().__init__()
+
+        self.api_client = api_client
+        self.token_manager = token_manager
 
         self.setWindowTitle("DFC Accounting")
         layout = QVBoxLayout()
@@ -15,6 +20,8 @@ class MainWindow(QWidget):
         # Top Layout
         self.header = HeaderWidget()
         layout.addWidget(self.header)
+
+        self.header.logoutButton.clicked.connect(self.handle_logout)
 
         # Bottom Layout
         bottomLayout = QHBoxLayout()
@@ -51,3 +58,8 @@ class MainWindow(QWidget):
         if page:
             index = self.contentArea.indexOf(page)
             self.contentArea.setCurrentIndex(index)
+
+    def handle_logout(self):
+        self.api_client.logout()
+        self.token_manager.delete_token()
+        self.close()
