@@ -1,11 +1,11 @@
 from PyQt5.QtWidgets import QApplication, QDialog
-# from region.view import RegionView
+# from regions.view import RegionView
 import sys
 
 from services.api_client import APIClient
 from services.token_manager import TokenManager
 from views.common.main_window import MainWindow
-from views.user.login_window import LoginWindow
+from views.users.login_window import LoginWindow
 
 if __name__ == "__main__":
     app = QApplication(sys.argv)

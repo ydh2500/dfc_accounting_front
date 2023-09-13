@@ -7,7 +7,10 @@ from services.token_manager import TokenManager
 
 class LoginWindow(QDialog):
     authenticated = pyqtSignal(str)
-    def __init__(self, api_client: APIClient, token_manager: TokenManager):
+
+    def __init__(self,
+                 api_client: APIClient,
+                 token_manager: TokenManager):
         super().__init__()
 
         self.api_client = api_client
@@ -38,11 +41,6 @@ class LoginWindow(QDialog):
 
         self.setLayout(layout)
 
-        #if self.api_client.token:
-        #    is_valid_token = self.api_client.check_token_validity(self.api_client.token)
-        #    if is_valid_token:
-        #        self.on_login_success(self.api_client.token)
-
     def check_credentials(self):
         username = self.username.text()
         password = self.password.text()
@@ -54,14 +52,10 @@ class LoginWindow(QDialog):
         if result and 'token' in result:
             token = result['token']
             self.on_login_success(token)
-            # self.api_client.set_token(token)
-            # self.token_manager.save_token(token)
-            # self.authenticated.emit(token)  # 인증 성공 시그널을 토큰과 함께 발생
-            # self.accept()
+
         else:
             self.username.setText("")
             self.password.setText("")
-
 
     def on_login_success(self, token):
         self.api_client.set_token(token)
@@ -69,5 +63,3 @@ class LoginWindow(QDialog):
         self.authenticated.emit(token)  # 인증 성공 시그널을 토큰과 함께 발생
         self.accept()
 
-    def exec_(self):
-        return QDialog.Accepted

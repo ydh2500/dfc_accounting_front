@@ -2,9 +2,9 @@
 작성자 : 윤두현
 작성일 : 23.09.12.
 
-본 파일은 region app의 models.py 파일입니다.
+본 파일은 regions app의 models.py 파일입니다.
 
-이 파일에서는 region app에서 사용되는 모델을 정의합니다.
+이 파일에서는 regions app에서 사용되는 모델을 정의합니다.
 
 1. Region
     1) name

@@ -1,10 +1,11 @@
-from PyQt5.QtWidgets import QWidget, QVBoxLayout, QStackedWidget, QHBoxLayout
+from PyQt5.QtWidgets import QWidget, QVBoxLayout, QStackedWidget, QHBoxLayout, QDialog
 
 from services.api_client import APIClient
 from services.token_manager import TokenManager
 from views.common.left_menu_contents import LeftMenuContents
 from views.common.header_widget import HeaderWidget
 from views.common.left_menu_widget import LeftMenuWidget
+from views.users.login_window import LoginWindow
 
 
 class MainWindow(QWidget):
@@ -63,3 +64,13 @@ class MainWindow(QWidget):
         self.api_client.logout()
         self.token_manager.delete_token()
         self.close()
+        self.show_login_window()
+
+    def show_login_window(self):
+        login_window = LoginWindow(api_client=self.api_client, token_manager=self.token_manager)
+        result = login_window.exec_()
+        if result == QDialog.Accepted:
+            self.show()
+        else:
+            # 로그인이 취소되거나 실패하면 어플리케이션 종료 또는 다른 처리
+            pass

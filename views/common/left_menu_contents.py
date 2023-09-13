@@ -1,18 +1,18 @@
-from views.financial_reports.annual_balance_sheet_page import AnnualBalanceSheetPage
-from views.financial_reports.monthly_financial_report_page import MonthlyFinancialReportPage
-from views.master.account_subject_management_page import AccountSubjectManagementPage
-from views.master.financial_report_status_management_page import FinancialReportStatusManagementPage
-from views.master.total_region_management_page import TotalRegionManagementPage
-from views.master.transaction_type_management_page import TransactionTypeManagementPage
-from views.settings.bank_account_management_page import BankAccountManagementPage
-from views.master.total_user_account_management_page import TotalUserAccountManagementPage
-from views.settings.member_management_page import MemberManagementPage
-from views.settings.region_management_page import RegionManagementPage
-from views.transaction_registration.transaction_registration_page import TransactionRegistrationPage
-from views.transaction_reports.account_ledger_page import GeneralLedgerPage
-from views.transaction_reports.bank_transaction_report_page import BankTransactionReportPage
-from views.transaction_reports.cash_book_page import CashBookPage
-from views.transaction_reports.general_ledger_page import AccountLedgerPage
+from views.reports.annual_balance_sheet_page import AnnualBalanceSheetPage
+from views.reports.monthly_financial_report_page import MonthlyFinancialReportPage
+from views.bank_accounts.account_type_management_page import AccountTypeManagementPage
+from views.reports.financial_report_status_management_page import FinancialReportStatusManagementPage
+from views.regions.total_region_management_page import TotalRegionManagementPage
+from views.transactions.transaction_type_management_page import TransactionTypeManagementPage
+from views.bank_accounts.bank_account_management_page import BankAccountManagementPage
+from views.users.total_user_management_page import TotalUserManagementPage
+from views.users.member_management_page import MemberManagementPage
+from views.regions.region_management_page import RegionManagementPage
+from views.transactions.transaction_registration_page import TransactionRegistrationPage
+from views.transactions.account_ledger_page import GeneralLedgerPage
+from views.transactions.bank_transaction_report_page import BankTransactionReportPage
+from views.transactions.cash_book_page import CashBookPage
+from views.transactions.general_ledger_page import AccountLedgerPage
 
 
 class LeftMenuContents:
@@ -35,9 +35,9 @@ class LeftMenuContents:
             "계좌 관리": BankAccountManagementPage(),
             "지구 관리": RegionManagementPage(),
             "멤버 관리": MemberManagementPage(),
-            "계정과목 관리": AccountSubjectManagementPage(),
+            "계정과목 관리": AccountTypeManagementPage(),
             "거래유형 관리": TransactionTypeManagementPage(),
-            "전체 사용자 계정 관리": TotalUserAccountManagementPage(),
+            "전체 사용자 계정 관리": TotalUserManagementPage(),
             "전체 지구 관리": TotalRegionManagementPage(),
             "재정보고서 현황 관리": FinancialReportStatusManagementPage(),
             # ... (기타 페이지 매핑)
